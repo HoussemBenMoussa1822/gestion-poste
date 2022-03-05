@@ -1,0 +1,106 @@
+{% extends 'user/base.html.twig ' %}
+
+
+{% block titre %}
+profilSDF
+{% endblock %} 
+
+
+
+
+
+
+{% block corp%}
+
+
+ <!-- food section -->
+
+  <section class="food_section layout_padding">
+    <div class="container">
+      <div class="heading_container heading_container">
+        <h2>
+Inscription        </h2>
+        <br><br>
+
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form_container">
+            <form action="">
+              <div>
+                <h1>Name  <h1>
+                <input type="text" class="form-control" placeholder="Your Name" />
+              </div>
+              <br>
+              <div>
+                <h1> Last Name  <h1>
+                <input type="text" class="form-control" placeholder="Your Last name" />
+              </div>
+              <br>
+              <div>
+                <h1>Phone <h1>
+                <input type="text" class="form-control" placeholder="Phone Number" />
+              </div>
+              <br>
+              
+              <br>
+              <div>
+                <h1>Gender<h1>
+                      <select>
+                        <option> 
+                          <h3> Choose Gender  <h3><BR></option>
+                            <option> 
+                              <h3></h3>Male  <h3><BR></option>
+                                <option> 
+                                  <h3> Female  <h3><BR></option>
+                         
+                      </select>
+                  </div>
+                  <br>
+                  
+                  <br>
+                  <div>
+                <h1>Birthday  <h1>
+                  <input type="date" id="start" name="trip-start"
+      
+                  
+                </div>
+              </div>
+              <br>
+                  
+                    
+                  </div>
+              <div>
+               
+              <br>
+              <h1>Image  </h1>
+              <div id="div_image" class="form-group">
+                <label for="exampleInputFile">Image</label>
+                <input type="file" class="form-control1" name="image" value="<?php echo $rows['image'] ?>" id="image">
+                <div  role="alert" id="err_image" ></div>
+                <br>
+                <br>
+              </div>
+            <div class="col-sm-8 col-sm-offset-2">
+              <input class="btn-primary btn" type="submit" name="update" value="update">
+              <input class="btn-primary btn" type="submit" name="cancel" value="Cancel">
+
+          </div>
+       
+          <div>
+       
+            <div class="col-md-4">
+              <div class="signin-image">
+                  <figure><img src="images/inscrit.png" alt="Girl in a jacket" width="600" height="300" style="margin-left:410%;margin-top:-400% "></figure>
+                  
+              </div>
+        </div>
+
+
+
+
+
+
+{%endblock%}
+
+

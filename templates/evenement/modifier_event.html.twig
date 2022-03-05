@@ -1,0 +1,82 @@
+
+{% extends 'admin/baseadmin.html.twig' %}
+{% form_theme f  'bootstrap_4_layout.html.twig' %}
+{% block titre %}  Evenement  {% endblock %}
+
+
+
+
+{% block corp%}
+<br><br>
+
+<h2> Evenement  </h2>
+<br>
+
+              
+
+{{ form_start(f, {attr: {novalidate: 'novalidate'}}) }}
+
+
+                    <div class="modal-body">
+                        <div class="form-group">
+
+                              {{ form_row( f.nom,{'attr' : {'placeholder' : "Saisir votre Nom"}}) }}
+                              {{ form_errors(f.nom, {'attr': {'class': 'text-danger'}}) }}
+
+                        </div>
+                        <div class="form-group">
+                    
+                              {{ form_row( f.typeE,{'attr' : {'placeholder' : "Saisir le type d'événement"}}) }}
+                                   {{ form_errors(f.typeE, {'attr': {'class': 'text-danger'}}) }}
+
+                        </div>
+                          <div class="form-group">
+
+                              {{ form_row( f.date_debut,{'attr' : {'placeholder' : "Saisir la date de début"}}) }}
+                                   {{ form_errors(f.date_debut, {'attr': {'class': 'text-danger'}}) }}
+
+                        </div>
+                         <div class="form-group">
+                  
+                              {{ form_row( f.date_fin,{'attr' : {'placeholder' : "Saisir la date de fin"}}) }}
+                                   {{ form_errors(f.date_fin, {'attr': {'class': 'text-danger'}}) }}
+
+                        </div>
+                         <div class="form-group">
+ 
+                              {{ form_row( f.description,{'attr' : {'placeholder' : "Mettez une description"}}) }}
+                                   {{ form_errors(f.description, {'attr': {'class': 'text-danger'}}) }}
+
+                        </div>
+                         <div class="form-group">
+                                <label >image</label>
+                               
+                                {{ form_widget(f.image, {'attr':{'class':''}})}}
+
+                            </div>
+                   
+                       
+                        
+                       
+            
+                   
+                {{ form_end (f)}}
+
+
+            </div>
+        </div>
+    </div>
+
+
+<br>
+
+
+
+
+
+
+
+
+
+
+{%endblock%}

@@ -1,0 +1,48 @@
+{% extends 'user/base.html.twig ' %}
+{% block corp%}
+
+
+<div class="content-page">
+    <!-- Start content -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row" style="display: flex;align-items: center;justify-content: center">
+                <div class="col-md-6">
+                    <div class="card-box">
+                        <h4 class="m-t-0 m-b-30 header-title">Modifier Post</h4>
+                        {{form_start(f)}}
+
+                        <div class="form-group">
+                            <label for="name">type</label>
+                            {{ form_widget(f.type, {'attr':{'class':'form-control'}})}}
+                        </div>
+                        <div class="form-group">
+                            <label for="name">image</label>
+                            {{ form_widget(f.image, {'attr':{'class':'form-control'}})}}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">description</label>
+                            {{ form_widget(f.description, {'attr':{'class':'form-control'}})}}
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">localisation</label>
+                            {{ form_widget(f.localisation, {'attr':{'class':'form-control'}})}}
+
+                        </div>
+
+                        {{ form_end(f) }}
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

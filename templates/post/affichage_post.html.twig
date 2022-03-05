@@ -1,0 +1,242 @@
+{% extends 'user/base.html.twig ' %}
+
+{% block corp %}
+<style>
+.boxtttt{
+	
+		transition: 1s;
+
+	}
+	.boxtttt img{
+		display: block;
+	border-radius: 5px;
+	}
+	.boxtttt:hover{
+		transform: scale(1.3);
+		z-index: 2;
+	}
+	</style>
+
+
+<div class="content-page">
+        <!-- Start content -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row" style="display: flex;align-items: center;justify-content: center">
+                    <div class="col-md-6">
+                        <div class="card-box">
+                            <h4 class="m-t-0 m-b-30 header-title">Ajouter Post</h4>
+                            {{form_start(f)}}
+
+                            <div class="form-group">
+                                <label for="type">type</label>
+                                {{ form_widget(f.type, {'attr':{'class':'form-control'}})}}
+                                <label {{ form_errors(f.type)}}</label>
+                            </div>
+
+                             <div class="form-group">
+                                <label >image</label>
+                               
+                                {{ form_widget(f.image, {'attr':{'class':''}})}}
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="description">description</label>
+                                {{ form_widget(f.description, {'attr':{'class':'form-control'}})}}
+                                <label {{ form_errors(f.description)}}</label>
+                            </div>
+
+
+                            <div class="form-group">
+                            
+      
+
+                                <label for="localisation">localisation</label>
+                                
+                                
+                                {{ form_widget(f.localisation, {'attr':{'class':'form-control'}})}}
+                                <label {{ form_errors(f.localisation)}}</label>
+                                
+
+                            </div>
+
+                            
+
+                           
+
+                            {{ form_end(f) }}
+
+                        </div>
+                        
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<div class="b-example-divider" ></div>
+
+
+
+
+
+
+<section class="food_section layout_padding">
+
+
+    <div class="container">
+
+
+         <div class="heading_container heading_center">
+           <h2> POSTS </h2>
+           </div>
+
+          
+
+      <br><br><br>
+ <br><br>
+
+            <div class="sidebar-search">
+
+                <div class="input-group custom-search-form">
+
+                    <input type="text" id="search" class="form-control" placeholder="Search here">
+                </div>
+                <!-- /input-group -->
+            </div>
+            <ul class="nav" id="side-menu">
+                <li>
+                    <a href="#"> search <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level" id="entitiesNav">
+                    </ul>
+                </li>
+            </ul><br><br><br><br>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+            <script type="text/javascript">
+                jQuery(document).ready(function() {
+                    var searchRequest = null;
+                    $("#search").keyup(function() {
+                        var minlength = 1;
+                        var that = this;
+                        var value = $(this).val();
+                        var entitySelector = $("#entitiesNav").html('');
+                        if (value.length >= minlength ) {
+                            if (searchRequest != null)
+                                searchRequest.abort();
+                            searchRequest = $.ajax({
+                                type: "GET",
+                                url: "{{ path('ajax_search') }}",
+                                data: {
+                                    'q' : value
+                                },
+                                dataType: "text",
+                                success: function(msg){
+                                    //we need to check if the value is the same
+                                    if (value===$(that).val()) {
+                                        var result = JSON.parse(msg);
+                                        $.each(result, function(key, arr) {
+                                            $.each(arr, function(id, value) {
+                                                if (key === 'post') {
+                                                    if (id !== 'error') {
+                                                        console.log(value[1]);
+                                                        entitySelector.append('<li><b>'+value[1]+'</b><a href="">'+'<img src="/uploads/post/'+value[0]+'" style="width: 50px; height: 50px"/>'+'</a></li>');
+                                                    } else {
+                                                        entitySelector.append('<li class="errorLi">'+value+'</li>');
+                                                    }
+                                                }
+                                            });
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                    });
+                });
+            </script>
+
+
+      <section class="home-about-area">
+
+				<div class="container-fluid">				
+		<div class="row justify-content-center align-items-center">				
+             {% for p in Posts  %}
+          	<div class="col-lg-6 no-padding home-about-left">
+            <div class="boxtttt">
+			<img  src="/uploads/{{p.image}}" id="img"  alt="Image" 
+              style =" width : 500px  ">    <br><br>  <br><br>
+						</div>
+            	</div>
+          
+			<div class="col-lg-6 no-padding home-about-right">
+                <h1 style="margin-left:10% ; margin-top:-20%">{{ p.type }}</h1> 
+                     <a style="margin-left:10%">{{ p.description}} </a> <br>
+                         
+                        <p>
+                        <span style="margin-left:10%">{{ p.localisation}}</span>
+                        </p>
+
+                       
+                         <button type="button" class="btn btn-outline-primary"><a href="{{ path('modifier',{'id':p.id}) }}" >modifier</a></button>
+                          <button type="button" class="btn btn-outline-primary"><a href="{{ path('suppression',{'id':p.id}) }}">supprimer</a></button>
+                           
+                             
+                                
+                                                                                               
+            <button type="button" class="btn btn-info" data-dismiss="modalcommentaire"><a href="{{ path('addC', {'idpost': p }) }}">ajouter Commentaire</a></button> 
+   
+	        </div>
+			<table>
+			<tr>
+     	     {% for postid,commentairesdupost in Commentaires %}
+                                    {% if postid == p.id %}
+                                    {% for c in commentairesdupost %}
+									    <div class="card mb-2">
+                    <div class="card-body p-2 p-sm-3">
+                        <div class="media forum-item">
+                            <a href="#" data-toggle="collapse" data-target=".forum-content"><img src="https://bootdey.com/img/Content/avatar/avatar2.png" class="mr-3 rounded-circle" width="50" alt="User" /></a>
+                            <div class="media-body">
+                                <h6><a href="#" data-toggle="collapse" data-target=".forum-content" class="text-body">moetez bouchlaghem </a></h6>
+                                <p class="text-secondary">
+                                     
+											<a>{{ c.text }}  </a>
+                                            <tr>
+											 <a href="{{ path('suppressionC',{'id':c.id}) }}">supprimer</a> 
+            								 <a href="{{ path('modifierC',{'idpost':c.idpost,'id':c.id}) }}">modifier</a>
+                                             </tr>
+											  </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>		 
+                                    {% endfor %}
+									<br> <br>
+                               {% endif %}
+                    
+                        {% endfor %}
+						</tr>
+						</table>
+                               
+					<br> <br> <br> <br>
+                                   
+    {% endfor %}	
+
+					</div>
+
+				</div>
+ 
+          </div>  
+    </section>
+
+    
+
+
+
+{% endblock %}

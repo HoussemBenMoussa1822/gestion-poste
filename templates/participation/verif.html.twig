@@ -1,0 +1,90 @@
+
+
+
+
+
+
+{% extends 'admin/baseadmin.html.twig' %}
+{% block titre %}  participation  {% endblock %}
+
+
+
+
+{% block corp%}
+
+
+
+
+
+
+<br><br><br><br>
+
+<h2> Vérification  :</h2>
+<br>
+
+
+
+
+<table width="891" border="1">
+  <tr>
+   <td class="grise2" width="355">Nom </td>
+    <th class="grise2"><div align="center"> Peter</div></th>
+    
+  </tr>
+  <tr class="grise">
+    <td class="grise2" width="355">Prénom </td>
+   <th class="grise2"><div align="center"> Griffin</div></th>
+ 
+  </tr>
+  <tr class="grise">
+    <td class="grise2">E-mail</td>
+    <th class="grise2"><div align="center"> Peter.griffin@gmail.com</div></th>
+    
+  </tr>
+  <tr class="grise">
+    <td class="grise2"> Phone</td>
+    <th class="grise2"><div align="center"> 98972120</div></th>
+  
+  </tr>
+  <tr class="grise">
+    <td class="grise2"> Ancien Don</td>
+    <th class="grise2"><div align="center"><div>
+                <select class="form-control nice-select wide">
+                  
+                  <option value=""disabled selected>
+                    70$
+                  </option>
+                  <option value=""disabled selected>
+                    20$
+                  </option>
+                  <option value=""disabled selected>
+                    150$
+                  </option>
+                  <option value=""disabled selected>
+                    10$
+                  </option>
+                  
+                  
+                </select> </div></th>
+  
+  </tr>
+  
+
+  
+</table>
+
+<div> <br><br>
+              
+              <label for="fname"><b>Somme des Dons :</b> &nbsp;&nbsp; </label>
+               
+            <button onclick="myFunction()">Calculer</button>
+
+            <script>
+            function myFunction() {
+             alert("La Somme Des Dons est :   230$");
+            }
+            </script> <br><br></div>
+
+</body>
+</html>
+ {% endblock %}

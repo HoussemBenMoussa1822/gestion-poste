@@ -1,0 +1,82 @@
+{% extends 'admin/baseadmin.html.twig' %}
+
+
+{% block corp%}
+
+
+
+
+     
+<section class="home-about-area">
+
+				<div class="container-fluid">				
+		<div class="row justify-content-center align-items-center">				
+             {% for c in Categorys  %}
+          	
+          
+			<div class="col-lg-6 no-padding home-about-right">
+                <h1 style="margin-left:10% ; margin-top:-20%">{{ c.nom }}</h1> 
+                    
+                         
+                       
+
+                       
+                         <button type="button" class="btn btn-outline-primary"><a href="{{ path('modifiercat',{'id':c.id}) }}" >modifier</a></button>
+                          <button type="button" class="btn btn-outline-primary"><a href="{{ path('suppressioncat',{'id':c.id}) }}">supprimer</a></button>
+                              <a href="{{ path('ADDEVENT', {'idc': c}) }}">ajouter evenement</a></button>
+   
+                            
+            </div>
+			<table>
+			<tr>
+     	     {% for categoryid,evenementducategory in Evenements %}
+                                    {% if categoryid == c.id %}
+                                    {% for E in evenementducategory %}
+								<div class="container-fluid">				
+		<div class="row justify-content-center align-items-center">				
+            
+          	<div class="col-lg-6 no-padding home-about-left">
+            <div class="boxtttt">
+			<img  src ="{{('images/' ~ E.image )}}"  alt="Image" 
+              style =" width : 500px  ">    <br><br>  <br><br>
+						</div>
+            	</div>
+          
+					<div class="col-lg-6 no-padding home-about-right">
+                     <h1 style="margin-left:10% ; margin-top:-20%">{{E.nom}}</h1> 
+                       <a style="margin-left:10%">{{E.datedebut | date('d/m/Y')}}  à {{E.datefin | date('d/m/Y')}} </a> <br>
+                         <a style="margin-left:10%">{{E.typeE}}</a>  <br>
+                       	<p>
+				            <span style="margin-left:10%">{{E.description}}</span>
+				                </p>
+								
+						        
+		 <button style="margin-left:10%" href="" type="submit" class="btn btn-info"> particpier</button> 
+       
+						</div>
+			<table>
+			<tr>
+                </div>
+            </div>		 
+                                    {% endfor %}
+									<br> <br>
+                               {% endif %}
+                    
+                        {% endfor %}
+						</tr>
+						</table>
+                               
+					<br> <br> <br> <br>
+                                   
+    {% endfor %}	
+
+					</div>
+
+				</div>
+ 
+          </div>  
+    </section>
+
+
+
+{% endblock %}

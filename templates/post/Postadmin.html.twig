@@ -1,0 +1,54 @@
+{% extends 'admin/baseadmin.html.twig' %}
+{% block titre %}  Postadmin  {% endblock %}
+
+
+
+
+{% block corp%}
+
+ {% for p in Post %}
+                                <div class="card-box" style="margin:0;">
+                                 <tbody>
+                                 
+                                 <table class="table" style="margin:0;">
+                                  
+                               
+                                <tr>
+                                    
+                                    <td class="p-3 mb-2 bg-dark text-white">type</td>
+                                    <td id="{{p.id}}">{{ p.type }}</td>
+                                    
+                                </tr>
+                                
+                                <tr>
+                                    <td class="p-3 mb-2 bg-dark text-white">description</td>
+                                    <td>{{ p.description}}</td>
+                                </tr>
+                                <tr>
+
+                                    <td class="p-3 mb-2 bg-dark text-white" >image</td>
+                                    <td><img id="img"  class="card-img-top img-fluid" width="20" src="/uploads/{{p.image}}"></td>
+                                </tr>
+                                <tr>
+                                        <td class="p-3 mb-2 bg-dark text-white">localisation</td>
+                                        
+                                        <td>{{ p.localisation}}</td>
+
+                                </tr>
+                                <tr>
+                                    
+                                    <td>
+                                           
+                                
+                                            
+                                                <a href="{{ path('suppressionA',{'id':p.id}) }}">supprimer</a>
+                                           
+                                          
+                                            
+                                    </td>
+                                        
+                                        
+                                </tr>
+                            {% endfor %}    
+
+ {% endblock %}

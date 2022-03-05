@@ -1,0 +1,137 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>ArcGIS API for JavaScript Tutorials: Display a map</title>
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+ <link rel="stylesheet" href="https://js.arcgis.com/4.22/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.22/"></script>
+     <script>
+      require(["esri/config","esri/Map", "esri/views/MapView", "esri/widgets/Locate", "esri/widgets/Track",
+          "esri/Graphic","esri/widgets/Search",  "esri/rest/route",
+      "esri/rest/support/RouteParameters",
+      "esri/rest/support/FeatureSet"], function (esriConfig,Map, MapView, Locate,  Track,
+            Graphic , Search , route, RouteParameters, FeatureSet) {
+
+            esriConfig.apiKey = "AAPKacaa969842a741f3bb206473001138f6EnhHX90FEnU2H6J4qTAYEiKQXg-j0CJhQq7KBliGPq_j-AjANrKFbvUiJQHGePtZ";
+
+        const map = new Map({
+          basemap: "arcgis-navigation" // Basemap layer service
+        });
+
+           const view = new MapView({
+          map: map,
+          center: [10.255072098302684, 36.85980659337294], // Longitude, latitude
+          zoom: 13, // Zoom level
+          container: "viewDiv" // Div element
+        });
+        
+           const track = new Track({
+          view: view,
+          graphic: new Graphic({
+            symbol: {
+              type: "simple-marker",
+              size: "12px",
+              color: "green",
+              outline: {
+                color: "#efefef",
+                width: "1.5px"
+              }
+            }
+          }),
+          useHeadingEnabled: false
+        });
+        view.ui.add(track, "top-left");
+ 
+  const search = new Search({  //Add Search widget
+      view: view
+    });
+view.ui.add(search, "top-right");
+     
+      const routeUrl = "https://route-api.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World";
+
+ view.on("click", function(event){
+
+ if (view.graphics.length === 0) {
+        addGraphic("origin", event.mapPoint);
+      } else if (view.graphics.length === 1) {
+        addGraphic("destination", event.mapPoint);
+      getRoute();
+      } else {
+        view.graphics.removeAll();
+        addGraphic("origin",event.mapPoint);
+      }
+
+    });
+
+     function addGraphic(type, point) {
+      const graphic = new Graphic({
+        symbol: {
+          type: "simple-marker",
+          color: (type === "origin") ? "white" : "black",
+          size: "8px"
+        },
+        geometry: point
+      });
+      view.graphics.add(graphic);
+    }
+
+function getRoute() {
+      const routeParams = new RouteParameters({
+        stops: new FeatureSet({
+          features: view.graphics.toArray()
+        }),
+returnDirections: true
+      });
+ route.solve(routeUrl, routeParams)
+        .then(function(data) {
+          data.routeResults.forEach(function(result) {
+            result.route.symbol = {
+              type: "simple-line",
+              color: [5, 150, 255],
+              width: 3
+            };
+            view.graphics.add(result.route);
+          });
+   // Display directions
+         if (data.routeResults.length > 0) {
+           const directions = document.createElement("ol");
+           directions.classList = "esri-widget esri-widget--panel esri-directions__scroller";
+           directions.style.marginTop = "0";
+           directions.style.padding = "15px 15px 15px 30px";
+           const features = data.routeResults[0].directions.features;
+             // Show each direction
+           features.forEach(function(result,i){
+             const direction = document.createElement("li");
+             direction.innerHTML = result.attributes.text + " (" + result.attributes.length.toFixed(2) + " miles)";
+             directions.appendChild(direction);
+           });
+             view.ui.empty("bottom-right");
+          view.ui.add(directions, "bottom-right");
+
+
+         }
+        })
+  .catch(function(error){
+            console.log(error);
+        })
+
+    }
+
+      });
+    </script>
+  </head>
+  <body>
+    <div id="viewDiv"></div>
+  </body>
+</html>

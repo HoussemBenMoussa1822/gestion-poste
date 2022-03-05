@@ -1,0 +1,51 @@
+{% extends 'admin/baseadmin.html.twig' %}
+
+
+{% block titre %}
+Evenement
+{% endblock %} 
+
+
+{% block corp%}
+
+
+
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"></div>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  
+                </div>
+
+
+
+<h3 style="color:orange">Evenement {{ f.nom }} </h3><br><br>
+<p>Type d'Evenement : {{ f.typeE }}</p>
+<br>
+<p>date début de l'evenement : {{f.datedebut | date('d/m/Y')}}</p>
+<br>
+<p>date fin de l'evenement: {{f.datefin | date('d/m/Y')}}</p>
+<br>
+
+ <p>description de l'evenement : {{ f.description }}</p>
+<br>
+ <img  src="/uploads/{{f.image}}" id="img"  alt="Image" 
+              style =" width : 300px  ">    <br><br>  <br><br>
+						</div>
+            	</div>
+
+<br><br><br>
+
+<button style="margin-left:30%" class="btn btn-success" ><a href="#" style="color:white">Imprimer PDF</a></button>
+{%endblock%}
+
+
+
+
+{% block footer%}
+
+{%endblock%}
